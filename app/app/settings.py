@@ -22,7 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-n&_v_gh$ze4z&e$7+f0cz#gzcvde37e$b!axa7o_si42j*%@&&"
+SECRET_KEY = (
+    "django-insecure-n&_v_gh$ze4z&e$7+f0cz#gzcvde37e$b!axa7o_si42j*%@&&"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,7 +43,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "core",
     "user",
+    "recipe",
     "rest_framework",
+    "rest_framework.authtoken",
     "drf_spectacular",
 ]
 
@@ -136,3 +140,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "core.User"
 
 REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"}
+
+SPECTACULAR_SETTINGS = {"COMPONENT_SPLIT_REQUEST": True}

@@ -8,6 +8,7 @@ from django.contrib.auth.base_user import (
 )
 
 from django.contrib.auth.models import PermissionsMixin
+from django.conf import settings
 
 
 class UserManager(BaseUserManager):
@@ -46,3 +47,34 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["name"]
+
+
+class Recipe(models.Model):
+    """Recipe object"""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
+    title = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
+    price = models.DecimalField(
+        max_digits=5, decimal_places=2, blank=True, null=True
+    )
+    time_minutes = models.IntegerField()
+    link = models.CharField(max_length=255, blank=True)
+    tags = models.ManyToManyField("Tag")
+
+    def __str__(self):
+        return self.title
+
+
+class Tag(models.Model):
+    """Tag for filtering recipes"""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
