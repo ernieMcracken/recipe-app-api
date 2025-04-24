@@ -33,7 +33,10 @@ class RecipeSerializer(serializers.ModelSerializer):
             recipe.tags.add(tag_obj)
 
     def create(self, validated_data):
-        """Create a recipe - nested serializer fields are read only, custom logic required"""
+        """
+        Create a recipe - nested serializer fields are read only
+        custom logic required
+        """
         tags = validated_data.pop("tags", [])
         recipe = Recipe.objects.create(**validated_data)
 

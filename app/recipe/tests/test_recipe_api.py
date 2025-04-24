@@ -14,7 +14,6 @@ from core.models import Recipe, Tag
 from recipe.serializers import (
     RecipeSerializer,
     RecipeDetailSerializer,
-    TagSerializer,
 )
 
 RECIPE_URL = reverse("recipe:recipe-list")
