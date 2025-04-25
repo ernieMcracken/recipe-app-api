@@ -23,6 +23,21 @@ class IngredientSerializer(serializers.ModelSerializer):
         read_only_fields = ["id"]
 
 
+class RecipeImageSerializer(serializers.ModelSerializer):
+    """Serializer for uploading images to recipes"""
+
+    class Meta:
+        model = Recipe
+        fields = ["id", "image"]
+        read_only_fields = ["id"]
+        extra_kwargs = {"image": {"required": True}}
+
+    def validate_image(self, value):
+        if not value:
+            raise serializers.ValidationError("No image was provided.")
+        return value
+
+
 class RecipeSerializer(serializers.ModelSerializer):
     """Serializer for recipes"""
 
@@ -39,6 +54,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             "link",
             "tags",
             "ingredients",
+            "image",
         ]
         read_only_fields = ["id"]
 
