@@ -1,6 +1,6 @@
 """Views for the recipe API"""
 
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -28,7 +28,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         return self.queryset.filter(user=self.request.user).order_by("-id")
 
     def perform_create(self, serializer):
-        """Create a new recipe - set the user on the recipe to the current user"""
+        """Create a new recipe"""
         serializer.save(user=self.request.user)
 
 
